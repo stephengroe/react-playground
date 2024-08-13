@@ -8,6 +8,8 @@ function App() {
   function addTask(e) {
     e.preventDefault();
 
+    if (!task.trim()) return;
+
     const newTaskList = [
       task,
       ...taskList,
@@ -17,9 +19,9 @@ function App() {
     setTask('');
   }
   
-  function deleteTask(taskToDelete: string) {
-    const newTaskList = taskList.filter(task => {
-      return task !== taskToDelete;
+  function deleteTask(indexToDelete: number) {
+    const newTaskList = taskList.filter((task, index) => {
+      return index !== indexToDelete;
     });
 
     setTaskList(newTaskList);
@@ -38,7 +40,7 @@ function App() {
         {taskList.map((task, index) => 
           <li key={index}>
             {task}
-            <button onClick={() => deleteTask(task)}>X</button>
+            <button onClick={() => deleteTask(index)}>X</button>
           </li>
         )}
       </ul>
