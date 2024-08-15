@@ -1,30 +1,44 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+
+interface Task {
+  id: number;
+  name: string;
+  done: boolean;
+}
 
 function EditableTodoList() {
   const [task, setTask] = useState('');
-  const [taskList, setTaskList] = useState<string[]>([]);
+  const [taskList, setTaskList] = useState<Task[]>([]);
 
-  function addTask(e) {
+  function addTask(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!task.trim()) return;
-    if (taskList.includes(task)) {
+    if (taskList.filter(item => item.name === task).length > 0) {
       alert(`The task '${task}' is a duplicate.`);
       return;
+    };
+
+    const id = Math.floor(Math.random() * 1000000);
+
+    const newTask: Task = {
+      id,
+      name: task,
+      done: false,
     }
 
     const newTaskList = [
-      task,
+      newTask,
       ...taskList
     ];
 
-    setTaskList(newTaskList);
     setTask('');
+    setTaskList(newTaskList);
   }
 
   return (
     <>
-      <form onSubmit={addTask}>
+      <form onSubmit={(e) => addTask(e)}>
         <input type='text' value={task} onChange={(e) => setTask(e.target.value)} />
         <button type='submit'>
           Add Task
@@ -32,8 +46,8 @@ function EditableTodoList() {
       </form>
 
       <ul>
-        {taskList.map((task, index) => 
-          <Task key={index} initialTask={task} />
+        {taskList.map((task) => 
+          <Task key={task.id} taskData={task} />
         )}
       </ul>
     </>
@@ -41,40 +55,30 @@ function EditableTodoList() {
 }
 
 interface TaskProps {
-  initialTask: string;
+  taskData: Task;
 }
 
-const Task: React.FC<TaskProps> = ({ initialTask }) => {
+const Task: React.FC<TaskProps> = ({ taskData }) => {
   const [editable, setEditable] = useState(false);
-  const [task, setTask] = useState(initialTask);
+  const [name, setName] = useState(taskData.name);
+  const [done, setDone] = useState(taskData.done);
 
   return (
-    <li onClick={() => setEditable(!editable)}>
-      {editable ? (
-        <input type='text' value={task} onChange={(e) => setTask(e.target.value)}/>
-      ): (
-        <span>{task}</span>
-      )}
-    </li>
-  )
+      <li>
+        <input type='checkbox' checked={done} onChange={() => setDone(!done)} />
+        {editable ? (
+          <>
+            <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
+            <button onClick={() => setEditable(false)}>💾</button>
+          </>
+        ) : (
+          <>
+            <span>{name}</span>
+            <button onClick={() => setEditable(true)}>✏️</button>
+          </>
+        )}
+      </li>
+  );
 }
-
-
-// State for individual
-// State for task list
-
-// Add input field
-// Add input button
-// ul
-  // map over tasks
-  // li for Task component (index as key)
-
-
-// Task component
-// state value
-// Clicking converts active state
-// blurring or hitting enter saves
-// Lift state up?
-
 
 export default EditableTodoList

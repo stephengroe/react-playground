@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import EditableTodoList from './EditableTodoList.tsx'
+import EditableTodoList from './EditableTodoList'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
