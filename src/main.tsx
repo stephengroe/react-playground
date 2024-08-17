@@ -4,6 +4,6 @@ import StarRating from './StarRating';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <StarRating {5} />
+    <StarRating numberOfStars={2} />
   </StrictMode>,
 )
