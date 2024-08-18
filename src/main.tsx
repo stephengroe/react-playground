@@ -8,6 +8,10 @@ import Root from './routes/root';
 import AppPage from './routes/AppPage';
 import './index.css';
 
+const components = [
+  
+]
+
 const router = createBrowserRouter([
   {
     path: '/',
