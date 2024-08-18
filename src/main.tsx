@@ -5,12 +5,19 @@ import {
   RouterProvider
 } from 'react-router-dom';
 import Root from './routes/root';
+import AppPage from './routes/AppPage';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />
+    element: <Root />,
+    children: [
+      {
+        path: '/:slug',
+        element: <AppPage />
+      }
+    ]
   }
 ]);
 
