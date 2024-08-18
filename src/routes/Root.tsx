@@ -1,7 +1,14 @@
 export default function Root() {
   return (
-    <div>
-      <div></div>
-    </div>
+    <>
+      <nav className='absolute left-0 top-0'>
+        <ul>
+          <li>Star ratings</li>
+        </ul>
+      </nav>
+      <div>
+        
+      </div>
+    </>
   )
 }
