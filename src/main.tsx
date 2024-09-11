@@ -10,7 +10,7 @@ import './index.css';
 
 const components = [
   
-]
+];
 
 const router = createBrowserRouter([
   {
