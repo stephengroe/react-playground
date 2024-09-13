@@ -15,7 +15,7 @@ const components = [
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <Root components={components} />,
     children: [
       {
         path: '/:slug',
